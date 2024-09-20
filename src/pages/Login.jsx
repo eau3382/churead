@@ -1,44 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import InputField from "../components/InputField";
 import LoginButton from "../components/LoginButton";
-import { Link } from "react-router-dom";
 
 const Login = () => {
-  // logic
-  // const history = useNavigate();
+  const [email, setEmail] = useState("");  // email 상태 관리
+  const [password, setPassword] = useState("");  // password 상태 관리
 
-  // const goToHome = () => {
-  //   history("/");
-  // };
+  const handleEmailChange = (value) => {
+    setEmail(value);  // 이메일 값 처리
+  };
 
-  // view
+  const handlePasswordChange = (value) => {
+    setPassword(value);  // 비밀번호 값 처리
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log("로그인 정보:", { email, password });  // 로그인 정보 출력 (디버깅용)
+  };
+
   return (
-    <div>
-      {/* <h2>Login</h2> */}
-      {/* <button type="button" onClick={goToHome}>
-        Home화면으로 이동
-      </button> */}
-      {/* <Link to={"/"} style={{ color: "red" }} className="link">
-        Home화면으로 이동
-      </Link> */}
+    <div className="grid place-content-center min-h-screen bg-gray-900 text-white">
       <h1>
-        <img src="./images/logo.svg" alt="churead로고" />
+        <img className="ml-6 mb-4" src="./images/logo.svg" alt="Churead 로고" />
       </h1>
       <h3 className="text-red">Churead에서 소통해보세요</h3>
-      {/* START: 폼 영역 */}
-      <form id="login-form">
-        <InputField />
-        <InputField />
-        <LoginButton />
+      
+      <form className="mt-2 text-center flex flex-col gap-2" onSubmit={handleLogin}>
+        <InputField typeInput="text" field="email" handleChange={handleEmailChange} />
+        <InputField typeInput="password" field="password" handleChange={handlePasswordChange} />
+        <LoginButton category="login" />
       </form>
-      {/* END: 폼 영역 */}
-      <div>
+
+      <div className="mt-4">
         <p>계정이 없으신가요?</p>
-        <Link>가입하기</Link>
+        <a href="/signin" className="text-blue-400 hover:text-blue-600">가입하기</a>
       </div>
-      {/* START: 소셜 로그인 영역 */}
-      <LoginButton />
-      {/* END: 소셜 로그인 영역 */}
     </div>
   );
 };
